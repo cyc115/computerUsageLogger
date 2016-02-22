@@ -2,7 +2,9 @@ import subprocess
 import time
 import json 
 from airtable import Airtable
-from airtableApp import Entry
+from airtableApp import Entry , Tags
+from tagTable import TagTbl
+from tagTable import SCREEN_LOCKED
 
 #TODO read the list of tag and associated window name from a predefined persistent file
 #TODO make an interface to toggle time tracking
@@ -15,32 +17,42 @@ airtableBaseId = "appjOjH6SqE5fiIWS"
 loggerTableName = 'Application'
 cmd = 'cat /proc/$(xdotool getwindowpid $(xdotool getwindowfocus))/comm'
 
+
 '''
 class variables
 '''
 exit = False
 at = Airtable(airtableBaseId, airtableAPIKey)
-
+ttbl = TagTbl("DUMMY")
 '''
 class methods
 '''
 def getRunningProgram () :
-    output_byte = subprocess.check_output(cmd, shell=True)
-    return output_byte.decode('utf-8')[0:-1]
+    '''
+    returns the name of the running program 
+    '''
+    try:
+        output_byte = subprocess.check_output(cmd, shell=True)
+        return output_byte.decode('utf-8')[0:-1]
+    except subprocess.CalledProcessError :
+        #when the system locks
+        return SCREEN_LOCKED
+            
 
-
+            
 prevApp = Entry(getRunningProgram()).start()
 
 print('current program ' , prevApp.appName)
 
 while not exit:
     currProgram = getRunningProgram()
+    
     if currProgram != prevApp.appName:
         prevApp.stop()
         entryDict = prevApp.buildEntry()
         prevApp = Entry(currProgram).start()
-
-        print('changed to ' , prevApp.appName, " update airtable")
+        prevApp.tags += [ttbl.lookUp(currProgram)] if ttbl.lookUp(currProgram) is not None else []
+        print(entryDict)
         #update air table
         at.create(loggerTableName, entryDict)
 

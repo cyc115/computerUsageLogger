@@ -11,7 +11,7 @@ aName = "Application name"
 
 class Entry():
 
-    def __init__(self, name):
+    def __init__(self, name='None'):
         self.appName = name
         self.tags = []
 
@@ -55,9 +55,12 @@ class Entry():
         self.eTime = datetime.now()
         return self
 
-
-
-
-
+class Tags () :
+    PROGRAMMING = 'programming'
+    WEB = 'web'
+    ENTERTAINMENT = 'entertainment'
+    WRITING = 'writing'
+    COMMUNICATION = 'communication'
+    IDLE = 'idle'
 
 
