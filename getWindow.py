@@ -4,6 +4,11 @@ import json
 from airtable import Airtable
 from airtableApp import Entry
 
+#TODO read the list of tag and associated window name from a predefined persistent file
+#TODO make an interface to toggle time tracking
+#TODO make an interface to allow adding tag
+#TODO detect mouse inactivity to stop/resume tracking when necessary
+
 #const
 airtableAPIKey = "keybBQanzhJwdlveV"
 airtableBaseId = "appjOjH6SqE5fiIWS"
