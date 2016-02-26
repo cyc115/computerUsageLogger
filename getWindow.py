@@ -7,6 +7,7 @@ from tagTable import TagTbl
 from tagTable import SCREEN_LOCKED
 import requests
 
+#TODO the cmd line has some trouble getting the name of some windows eg. steam, see if it's possible to do so
 #TODO read the list of tag and associated window name from a predefined persistent file
 #TODO make an interface to toggle time tracking
 #TODO make an interface to allow adding tag
