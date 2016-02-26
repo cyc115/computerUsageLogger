@@ -13,9 +13,9 @@ class Entry():
 
     def __init__(self, name='None'):
         self.appName = name
-        self.tags = []
+        self.tags =    []
 
-    def buildEntry (self) :
+    def buildLogEntry (self) :
         '''
         validate the object attributes and build the dictionary that can be used to
         make the request to the airTable backend
@@ -24,7 +24,7 @@ class Entry():
 
 
         if hasattr(self, 'sTime') and hasattr(self, 'eTime') \
-                and hasattr(self, 'tags') and hasattr(self, 'appName') :
+                and hasattr(self, 'tags') and hasattr(self, 'appName'):
             # this can be processed and build into an ordered dict
 
             d = {}
@@ -35,7 +35,7 @@ class Entry():
 
             return OrderedDict(d)
 
-    def start(self):
+    def startCount(self):
 
         '''
         start the timer
@@ -45,7 +45,7 @@ class Entry():
         self.sTime = datetime.now()
         return self
 
-    def stop(self):
+    def stopCount(self):
 
         '''
         stop the timer
