@@ -58,7 +58,7 @@ class Airtable():
                 message = None
                 r.raise_for_status()
             except requests.exceptions.HTTPError as e:
-                message = e.message
+                message = e.message if hasattr(e,'message') else "error has occured "
             return {
                 'error': dict(code=r.status_code, message=message)
             }
